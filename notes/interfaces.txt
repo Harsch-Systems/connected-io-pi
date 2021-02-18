@@ -1,0 +1,5 @@
+# add the following to /etc/network/interfaces
+allow-hotplug wwan0
+auto wwan0
+iface wwan0 inet manual
+	up /home/pi/connected-io-pi/scripts/StartDataCM4NA.sh
