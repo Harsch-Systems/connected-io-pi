@@ -1,0 +1,37 @@
+It is possible to configure the Connected IO EMU Modem EM1000T-VZ-CAT1
+to run in MBIM mode.  This eliminates the need to run AT commands to setup
+the network connection.  Instead, we can use mbimcli(1) and mbim-network(1)
+utilities to talk MBIM protocol to the modem for us. The example below also
+uses a helper script mbim-set-ip that was downloaded from a blog (see inline
+comments at the top of the script).
+
+The steps to configure the modem in mbim mode and establish an ip link are
+described below.  This example assumes a static IP configuration using the
+Verizon APN 'we01.vzwstatic'
+
+1.) Put the modem into MBIM mode by sending the following AT command (e.g.
+minicom -D /dev/ttyACM0)
+AT#USBCFG=5
+
+Now power-cycle the modem and reboot the pi.  Confirm that the following
+device is present after reboot:
+/dev/cdc-wdm0
+
+2.) Raspberry Pi OS already has the required drivers included (cdc_ncm, cdc_mbim)
+Install the userland utilities:
+	sudo apt install libmbim-utils
+
+3.) Create the file /etc/mbim-network.conf with the contents:
+APN=we01.vzwstatic
+APN_USER=
+APN_PASS=
+APN_AUTH=
+PROXY=yes
+
+4.) Tell the modem to connect, using the command:
+	sudo mbim-network /dev/cdc-wdm0 start
+
+5.) Run the helper script to set the host IP, etc:
+	sudo ./mbim-set-ip /dev/cdc-wdm0 wwan0
+
+At this point, the modem should be connected and traffic should flow over the wwan0 interface
