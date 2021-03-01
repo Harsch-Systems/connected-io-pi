@@ -199,7 +199,8 @@ if [[ "${#ipv4_addresses[@]}" > 0 ]]; then
 		printf "ip link set mtu $ipv4_mtu dev $DEV \n" >> $execfile
 	fi
 	if [[ "${#ipv4_dns[@]}" > 0 ]]; then
-		printf "systemd-resolve -4 --interface=$DEV --set-dns=%s\n" "${ipv4_dns[@]}" >>$execfile
+#		printf "systemd-resolve -4 --interface=$DEV --set-dns=%s\n" "${ipv4_dns[@]}" >>$execfile
+		printf "echo \"nameserver %s\" | resolvconf -a $DEV\n" "${ipv4_dns[@]}" >>$execfile
 	fi
 fi
 
