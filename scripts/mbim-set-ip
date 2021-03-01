@@ -200,7 +200,7 @@ if [[ "${#ipv4_addresses[@]}" > 0 ]]; then
 	fi
 	if [[ "${#ipv4_dns[@]}" > 0 ]]; then
 #		printf "systemd-resolve -4 --interface=$DEV --set-dns=%s\n" "${ipv4_dns[@]}" >>$execfile
-		printf "echo \"nameserver %s\" | resolvconf -a $DEV\n" "${ipv4_dns[@]}" >>$execfile
+		printf "echo \"nameserver %s\" | /sbin/resolvconf -a $DEV\n" "${ipv4_dns[@]}" >>$execfile
 	fi
 fi
 
