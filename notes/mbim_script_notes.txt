@@ -1,0 +1,8 @@
+Begin by completing steps 1-3 in mbim_notes.txt. This then gives instructions
+for getting mbim working automatically on boot or when the modem is plugged in.
+
+1)Copy mbim-modem-config and mbim-set-ip from the scripts folder into /usr/local/bin
+
+2)Copy the first three lines from interfaces.txt (not including the comment) into
+/etc/network/interfaces. Replace the last line with:
+	up /usr/local/bin/mbim-modem-config /dev/cdc-wdm0 $IFACE
