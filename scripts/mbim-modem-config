@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <Device Path> <Interface>"
+
+    exit 1
+fi
+
+for i in {1..4}
+do
+    echo "Attempt #$i: Calling /usr/bin/mbim-network $1 start..."
+
+    if ! /usr/bin/mbim-network $1 start | grep -q "Network start failed" ; then
+	echo "Calling /usr/local/bin/mbim-set-ip $1 $2..."
+
+        /usr/local/bin/mbim-set-ip $1 $2
+        exit 0
+    fi
+
+    echo "Attempt Failed."
+    sleep 5s
+done
+
+echo "ERROR: Could not start modem"
+
+ip link set dev $IFACE down
+
+exit 2
