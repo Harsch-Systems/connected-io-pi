@@ -22,4 +22,4 @@ for Number 2.
 For a recipe to configure /etc/network/interfaces using the modem in AT command mode, install ['StartDataCM4NA.sh'](scripts/StartDataCM4NA.sh) and ['at.sh'](scripts/at.sh) scripts
 and use 'interfaces.txt' as a guide for your entry in /etc/network/interfaces.  Note: the above scripts may require tweaking (e.g. install ppp package to gain 'chat' command)
 
-For a recipe to configure ModemManager and NetworkManager with the modem in MBIM mode, see [this file](notes/modemmanager_notes.txt)
+For a recipe to configure ModemManager and NetworkManager with the modem in MBIM mode, see [this file](notes/modemmanager_notes.md)
