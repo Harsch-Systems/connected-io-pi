@@ -41,9 +41,25 @@ sudo apt install network-manager
 sudo systemctl enable NetworkManager
 ```
 
-7. Create a NetworkManager connection for the modem (your APN may be different)
+7. Create a NetworkManager connection for the modem
+
+(Verizon static IP example)
 ```
 sudo nmcli con add type gsm ifname '*' con-name 'verizonstatic' apn 'we01.vzwstatic' connection.autoconnect yes
 ```
 
+(Verizon dynamic IP example)
+```
+sudo nmcli con add type gsm ifname '*' con-name 'verizon' apn 'vzwinternet' connection.autoconnect yes
+```
+
+8.) Configure NetworkManager for any wifi connections that got disabled in step 3/4
+
+(use menu system to specify wifi network SSID and password)
+```
+sudo nmtui
+```
+
 Reboot and see if wwan0 autoconnects
+
+Use 'nmcli con status' to check connections
