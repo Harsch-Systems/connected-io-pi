@@ -1,5 +1,7 @@
 ## Setup ModemManager and NetworkManager for the ConnectedIO EM1000T-VZ-CAT1 modem on Raspberry Pi
 
+### (Update November 2021: Raspberry Pi OS (Bullseye) includes an up-to-date version of ModemManager thus obviating the below backports workaround)
+
 The version of ModemManager that ships with Raspberry Pi OS (1.10) doesn't appear to work with the Telit LE910 V2
 in MBIM mode (AT#USBCFG=3) and so we must upgrade to a newer version (1.14).  Thankfully, that is available via
 the debian backports repository.
