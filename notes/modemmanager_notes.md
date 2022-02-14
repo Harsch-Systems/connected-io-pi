@@ -1,49 +1,25 @@
 ## Setup ModemManager and NetworkManager for the ConnectedIO EM1000T-VZ-CAT1 modem on Raspberry Pi
 
-### (Update November 2021: Raspberry Pi OS (Bullseye) includes an up-to-date version of ModemManager thus obviating the below backports workaround)
+### (Update February 2022: Instructions below only work on Bullseye or newer Raspberry Pi OS (old backports workaround has been removed)
 
-The version of ModemManager that ships with Raspberry Pi OS (1.10) doesn't appear to work with the Telit LE910 V2
-in MBIM mode (AT#USBCFG=3) and so we must upgrade to a newer version (1.14).  Thankfully, that is available via
-the debian backports repository.
-
-0. Add this line to /etc/apt/sources.list
-```
-deb http://deb.debian.org/debian buster-backports main
-```
-
-1. Download and install the Debian repo key package
-```
-wget http://deb.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2021.1.1_all.deb
-sudo dpkg -i debian-archive-keyring_2021.1.1_all.deb
-sudo apt update
-```
-
-2. Install the new ModemManager package
-```
-sudo apt install -t buster-backports modemmanager
-```
-
-3. Disable dhcpcd.service
-```
-sudo systemctl disable dhcpcd
-```
-
-4. Disable networking.service
-```
-sudo systemctl disable networking
-```
-
-5. Install NetworkManager
+1. Install NetworkManager
 ```
 sudo apt install network-manager
 ```
 
-6. Enable NetworkManager
+2.) Configure NetworkManager for any wifi connections
+
+(use menu system to specify wifi network SSID and password)
 ```
-sudo systemctl enable NetworkManager
+sudo nmtui
 ```
 
-7. Create a NetworkManager connection for the modem
+3. Install ModemManager
+```
+sudo apt install modemmanager
+```
+
+4. Create a NetworkManager connection for the modem
 
 (Verizon static IP example)
 ```
@@ -55,11 +31,19 @@ sudo nmcli con add type gsm ifname '*' con-name 'verizonstatic' apn 'we01.vzwsta
 sudo nmcli con add type gsm ifname '*' con-name 'verizon' apn 'vzwinternet' connection.autoconnect yes
 ```
 
-8.) Configure NetworkManager for any wifi connections that got disabled in step 3/4
-
-(use menu system to specify wifi network SSID and password)
+5. Disable dhcpcd.service
 ```
-sudo nmtui
+sudo systemctl disable dhcpcd
+```
+
+6. Disable networking.service
+```
+sudo systemctl disable networking
+```
+
+6. Enable NetworkManager
+```
+sudo systemctl enable NetworkManager
 ```
 
 Reboot and see if wwan0 autoconnects
