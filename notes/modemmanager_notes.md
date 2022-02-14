@@ -2,7 +2,7 @@
 
 ### (Update February 2022: Instructions below only work on Bullseye or newer Raspberry Pi OS (old backports workaround has been removed)
 
-1. Install NetworkManager
+1.) Install NetworkManager
 ```
 sudo apt install network-manager
 ```
@@ -14,12 +14,12 @@ sudo apt install network-manager
 sudo nmtui
 ```
 
-3. Install ModemManager
+3.) Install ModemManager (may already be installed from step 1)
 ```
 sudo apt install modemmanager
 ```
 
-4. Create a NetworkManager connection for the modem
+4.) Create a NetworkManager connection for the modem
 
 (Verizon static IP example)
 ```
@@ -31,17 +31,17 @@ sudo nmcli con add type gsm ifname '*' con-name 'verizonstatic' apn 'we01.vzwsta
 sudo nmcli con add type gsm ifname '*' con-name 'verizon' apn 'vzwinternet' connection.autoconnect yes
 ```
 
-5. Disable dhcpcd.service
+5.) Disable dhcpcd.service
 ```
 sudo systemctl disable dhcpcd
 ```
 
-6. Disable networking.service
+6.) Disable networking.service
 ```
 sudo systemctl disable networking
 ```
 
-6. Enable NetworkManager
+7. Enable NetworkManager
 ```
 sudo systemctl enable NetworkManager
 ```
