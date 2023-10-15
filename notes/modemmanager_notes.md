@@ -2,7 +2,9 @@
 
 ### (Update February 2022: Instructions below only work on Bullseye or newer Raspberry Pi OS (old backports workaround has been removed)
 
-1.) Install NetworkManager
+### (Update October 2023: With the rlease of Bookworm, NetworkManager is now the default way of configuring networking on Raspberry Pi.
+
+1.) Install NetworkManager (Not needed for Bullseye and later)
 ```
 sudo apt install network-manager
 ```
